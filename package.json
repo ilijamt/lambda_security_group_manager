@@ -1,0 +1,56 @@
+{
+  "author": {
+    "name": "Ilija Matoski",
+    "email": "ilijamt@gmail.com",
+    "url": "https://matoski.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/ilijamt/lambda_security_group_manager/issues"
+  },
+  "contributors": [],
+  "dependencies": {
+    "aws-sdk": "^2.2.33",
+    "glob": "^6.0.4",
+    "q": "^1.4.1",
+    "request": "^2.69.0",
+    "xml2js": "^0.4.16"
+  },
+  "description": "Auto managing your AWS security groups with Lambda",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-install": "^0.6.0",
+    "gulp-zip": "^3.0.2",
+    "istanbul": "^0.4.2",
+    "jsdoc": "^3.4.0",
+    "mocha": "^2.4.5",
+    "nock": "^7.0.2",
+    "node-aws-lambda": "^0.1.7",
+    "run-sequence": "^1.1.5",
+    "should": "^8.2.1"
+  },
+  "homepage": "https://github.com/ilijamt/lambda_security_group_manager#readme",
+  "keywords": [
+    "aws",
+    "lambda",
+    "security",
+    "group",
+    "nodejs",
+    "amazon",
+    "ec2",
+    "vpc"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "lambda_security_group_manager",
+  "readmeFilename": "README.md",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ilijamt/lambda_security_group_manager.git"
+  },
+  "engines": {
+    "node": "~0.10.x"
+  },
+  "version": "0.1.0"
+}
