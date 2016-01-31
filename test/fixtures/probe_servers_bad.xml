@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:pingdom="http://www.pingdom.com/ns/PingdomRSSNamespace">
+    <channel>
+        <title>Probe servers</title>
+        <link>http://www.pingdom.com</link>
+        <description>These are the servers that we use to check your site. You can use the IP numbers to open up for them in your firewall.</description>
+        <language>en</language>
+        <lastBuildDate>Sat, 30 Jan 2016 22:18:53 +0100</lastBuildDate>
+        <docs>http://cyber.law.harvard.edu/rss/rss.html</docs>
+    </channel>
+</rss>

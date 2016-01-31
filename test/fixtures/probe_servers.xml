@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:pingdom="http://www.pingdom.com/ns/PingdomRSSNamespace">
+    <channel>
+        <title>Probe servers</title>
+        <link>http://www.pingdom.com</link>
+        <description>These are the servers that we use to check your site. You can use the IP numbers to open up for
+            them in your firewall.
+        </description>
+        <language>en</language>
+        <lastBuildDate>Sat, 30 Jan 2016 22:18:53 +0100</lastBuildDate>
+        <docs>http://cyber.law.harvard.edu/rss/rss.html</docs>
+        <atom:link href="https://my.pingdom.com/probes/feed" rel="self" type="application/rss+xml"/>
+
+        <item>
+            <pingdom:ip>95.211.228.65</pingdom:ip>
+            <pingdom:ipv6>2001:1AF8:4020:A04B:0001::498</pingdom:ipv6>
+        </item>
+
+        <item>
+            <pingdom:ip>168.1.92.58</pingdom:ip>
+            <pingdom:ipv6>2401:c900:1301:78::5</pingdom:ipv6>
+        </item>
+
+        <item>
+            <pingdom:ip>168.3.92.58</pingdom:ip>
+        </item>
+
+        <item>
+            <pingdom:ipv6>2401:c901:1301:78::5</pingdom:ipv6>
+        </item>
+
+    </channel>
+</rss>
