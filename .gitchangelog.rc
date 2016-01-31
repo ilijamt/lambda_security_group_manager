@@ -12,3 +12,5 @@ ignore_regexps = [
 unreleased_version_label = "Next version (unreleased yet)"
 output_engine = mustache("markdown")
 include_merge = True
+
+body_process = ReSub(r'.*', '') | ReSub(r'^(\n|\r)$', '') | strip
