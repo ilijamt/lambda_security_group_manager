@@ -40,4 +40,4 @@ endif
 ifeq (, $(shell which pystache))
  $(error "No pystache path, consider doing pip install pystache")
 endif
-	gitchangelog  > CHANGELOG
+	gitchangelog > CHANGELOG.md
