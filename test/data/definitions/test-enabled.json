@@ -1,0 +1,5 @@
+{
+  "name": "Test Enabled",
+  "enabled": true,
+  "processor": "TestProcessor"
+}
