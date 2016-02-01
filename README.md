@@ -6,8 +6,10 @@ Configuration
 
 ### Environment
 
-* **DIR_CONFIGS**: If set it will override the defined configs directory
+* **DIR_DEFS**: If set it will override the defined definitions directory
+* **EXT_DEFS**: If set it will override the defined extension for definitions
 * **DIR_PROCESSORS**: If set it will override the defined processors directory
+* **EXT_PROCESSORS**: If set it will override the defined processors for definitions
 * **CONCURRENCY**: If set it will override how many task can it run at one time
 
 ### Lambda
