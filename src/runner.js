@@ -54,6 +54,14 @@ function Runner() {
   this.TYPE_DEFINITIONS = 'definitions';
 }
 
+/**
+ * Get available files based on the proposed type
+ *
+ * @param {string} type A valid type to process, can be {@link #TYPE_PROCESSORS} or {@link #TYPE_DEFINITIONS}
+ * @param {?object} options glob options, see glob documentation for what can you pass
+ *
+ * @return {promise} A promise
+ */
 Runner.prototype.getFiles = function getFiles(type, options) {
   var deferred = Q.defer();
 

@@ -16,8 +16,8 @@ var parseString = xml2js.parseString;
  *
  * @augments Processor
  *
- * @param {?object} opts Processor parameters
- * @param {?string} opts.URI Pingdom URI
+ * @param {?object} opts Processor parameters, see {@link Processor} for other parameters you can pass
+ * @param {string} [opts.URI=https://my.pingdom.com/probes/feed] Pingdom URI
  *
  * @constructor
  */

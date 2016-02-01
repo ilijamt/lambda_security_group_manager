@@ -11,7 +11,7 @@ var Q = require('q');
  * @author Ilija Matoski <ilijamt@gmail.com>
  *
  * @param {object} opts Processor parameters
- * @param {boolean} opts.cacheable Is the data cacheable?
+ * @param {boolean} [opts.cacheable=true] Is the data cacheable?
  *
  * @constructor
  */
@@ -88,9 +88,8 @@ Processor.prototype.get = function get() {
 /**
  * Add a new IPv4 address to {@link #ips#ipv4} if it's not already there
  *
- * @function
- *
  * @param {string} ip IPv4 Address
+ *
  * @return {boolean} true if the object is added successfully
  */
 Processor.prototype.addIPv4 = function addIPv4(ip) {
@@ -103,8 +102,8 @@ Processor.prototype.addIPv4 = function addIPv4(ip) {
 /**
  * Add a new IPv6 address to {@link #ips#ipv6} if it's not already there
  *
- * @function
  * @param {string} ip IPv6 Address
+ *
  * @return {boolean} true if the object is added successfully
  */
 Processor.prototype.addIPv6 = function addIPv6(ip) {

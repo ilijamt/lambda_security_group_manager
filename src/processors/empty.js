@@ -13,7 +13,7 @@ var Processor = require('../processor.js');
  *
  * @augments Processor
  *
- * @param {?object} opts Processor parameters
+ * @param {?object} opts Processor parameters, see {@link Processor} for other parameters you can pass
  *
  * @constructor
  */

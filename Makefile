@@ -52,7 +52,7 @@ eslint-html:
 
 .PHONY: eslint
 eslint:
-	$(BIN)/eslint .
+	$(BIN)/eslint . --fix
 
 .PHONY: jscs
 jscs:
