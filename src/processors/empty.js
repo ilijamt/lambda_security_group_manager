@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
-var util = require('util'),
-    Processor = require('../processor.js');
+var util = require('util');
+var Processor = require('../processor.js');
 
 /**
- * @classdesc An empty processor that extends from {@link Processor}
+ * An empty processor that extends from {@link Processor}
+ *
  * @class
  * @since 1.0.0
  *
@@ -12,19 +13,19 @@ var util = require('util'),
  *
  * @augments Processor
  *
- * @param opts {Object} Processor parameters
+ * @param {?object} opts Processor parameters
  *
  * @constructor
  */
 var EmptyProcessor = function EmptyProcessor(opts) {
-    Processor.apply(this, [opts]);
+  Processor.apply(this, [opts]);
 
-    /**
-     * The name of the Processor
-     *
-     * @type {string}
-     */
-    this.name = "EmptyProcessor";
+  /**
+   * The name of the Processor
+   *
+   * @type {string}
+   */
+  this.name = 'EmptyProcessor';
 };
 
 util.inherits(EmptyProcessor, Processor);

@@ -1,19 +1,19 @@
 verbose: false
 instrumentation:
-    root: ./src
-    extensions:
-        - .js
-    default-excludes: true
-    excludes: []
-    embed-source: true
-    preserve-comments: true
-    save-baseline: true
-    baseline-file: ./build/coverage/coverage-baseline.json
-    include-all-sources: true
+  root: ./src
+  extensions:
+    - .js
+  default-excludes: true
+  excludes: []
+  embed-source: true
+  preserve-comments: true
+  save-baseline: true
+  baseline-file: ./build/coverage/coverage-baseline.json
+  include-all-sources: true
 reporting:
-    print: html
-    reports:
-        - lcov
-        - json
-        - clover
-    dir: ./build/coverage/
+  print: html
+  reports:
+    - lcov
+    - json
+    - clover
+  dir: ./build/coverage/

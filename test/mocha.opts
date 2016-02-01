@@ -2,3 +2,5 @@
 --reporter spec
 --check-leaks
 --recursive
+--timeout 5000
+--growl

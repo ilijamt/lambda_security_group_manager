@@ -18,6 +18,7 @@
   },
   "description": "Auto managing your AWS security groups with Lambda",
   "devDependencies": {
+    "chai": "^3.5.0",
     "del": "^2.2.0",
     "eslint": "^1.10.3",
     "eslint-config-google": "^0.3.0",
