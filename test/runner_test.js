@@ -25,12 +25,60 @@ describe('Runner', function() {
   });
 
   describe('#run', function() {
+    before(function() {
+      runner.reset();
+    });
     it('should be a promise', function() {
       return runner.run().should.be.a.Promise();
+    });
+    it('everything should be loaded', function() {
+      runner.isLoaded().should.be.true();
+      runner.definitions.should.have.length(1);
+      Object.keys(runner.processors).should.have.length(1);
+    });
+  });
+
+  describe('#reset', function() {
+    before(function() {
+      runner.reset();
+    });
+    it('beforeRunning', function() {
+      runner.isLoaded().should.be.false();
+      runner.reset();
+      runner.isLoaded().should.be.false();
+    });
+  });
+
+  describe('#run - override to invalid type', function() {
+    var originalTypeDefinitions = runner.TYPE_DEFINITIONS;
+    var originalTypeProcessors = runner.TYPE_PROCESSORS;
+
+    before(function() {
+      runner.reset();
+      runner.TYPE_DEFINITIONS = 'awgha34g';
+      runner.TYPE_PROCESSORS = 'awgha34g';
+    });
+
+    it('should fail', function() {
+      return runner.run().should.be.rejected();
+    });
+    it("won't be loaded", function() {
+      runner.isLoaded().should.be.false();
+      runner.definitions.should.have.length(0);
+      Object.keys(runner.processors).should.have.length(0);
+    });
+
+    after(function() {
+      runner.TYPE_DEFINITIONS = originalTypeDefinitions;
+      runner.TYPE_PROCESSORS = originalTypeProcessors;
     });
   });
 
   describe('#getFiles', function() {
+    before(function() {
+      runner.reset();
+    });
+
     it('should return files from a valid type', function(done) {
       return runner.getFiles(runner.TYPE_PROCESSORS)
         .then(function onFulfilled(files) {
@@ -51,12 +99,17 @@ describe('Runner', function() {
   });
 
   describe('#loadDefinitions', function() {
+    before(function() {
+      runner.reset();
+    });
+
     it('should load definitions', function() {
       return runner.loadDefinitions().should.be.fulfilled();
     });
 
     it('should have exactly one definiton and correct data', function() {
       runner.definitions.should.have.length(1);
+      runner.definitionsLoaded.should.be.true();
       var definition = runner.definitions[0];
       definition.name.should.be.equal('Test Enabled');
       definition.enabled.should.be.true();
@@ -65,10 +118,16 @@ describe('Runner', function() {
   });
 
   describe('#loadProcessors', function() {
+    before(function() {
+      runner.reset();
+    });
+
     it('should load processors', function() {
       return runner.loadProcessors().should.be.fulfilled();
     });
+
     it('should have exactly one processor and correct data', function() {
+      runner.processorsLoaded.should.be.true();
       runner.processors.should.have.keys('TestProcessor');
       Object.keys(runner.processors).should.have.length(1);
     });
