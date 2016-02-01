@@ -13,9 +13,9 @@ var path = require('path');
  * @property {string} definitions.ext The definitions extension, defaults to <b>*.json</b><br/>
  * If you want to override from the command line you need to set <b>EXT_DEFS</b> environment variable to the extension you want
  * @property {object} processors The processors directory and extension
- * @property {string} processors.dir The configs relative directory to the root, defaults to <b>./src/processors</b> <br/>
+ * @property {string} processors.dir The processors relative directory to the root, defaults to <b>./src/processors</b> <br/>
  * If you want to override from the command line you need to set <b>DIR_PROCESSORS</b> environment variable to the path you want
- * @property {string} processors.ext The configs extension, defaults to <b>*.js</b><br/>
+ * @property {string} processors.ext The processors extension, defaults to <b>*.js</b><br/>
  * If you want to override from the command line you need to set <b>EXT_PROCESSORS</b> environment variable to the extension you want
  * @property {number} concurrency How many items should it run concurrently, defaults to: <b>5</b>
  *
