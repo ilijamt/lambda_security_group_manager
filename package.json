@@ -9,6 +9,7 @@
   },
   "contributors": [],
   "dependencies": {
+    "async": "^1.5.2",
     "aws-sdk": "^2.2.33",
     "glob": "^6.0.4",
     "q": "^1.4.1",
@@ -18,10 +19,13 @@
   "description": "Auto managing your AWS security groups with Lambda",
   "devDependencies": {
     "del": "^2.2.0",
+    "eslint": "^1.10.3",
+    "eslint-config-google": "^0.3.0",
     "gulp": "^3.9.0",
     "gulp-install": "^0.6.0",
     "gulp-zip": "^3.0.2",
     "istanbul": "^0.4.2",
+    "jscs": "^2.9.0",
     "jsdoc": "^3.4.0",
     "mocha": "^2.4.5",
     "nock": "^7.0.2",
