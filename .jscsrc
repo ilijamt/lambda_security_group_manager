@@ -1,7 +1,7 @@
 {
     "preset": "google",
     "verbose": true,
-    "maxErrors": 100,
+    "maxErrors": 1000,
     "fileExtensions": [".js"],
     "excludeFiles": [
 	"configs/**",

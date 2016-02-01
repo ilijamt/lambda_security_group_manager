@@ -4,6 +4,10 @@ BIN = $(NODE_MODULES)/.bin
 .PHONY: all
 all:
 
+.PHONY: setup
+setup:
+	npm install
+
 .PHONY: src-cov
 src-cov: clean-coverage
 	$(BIN)/istanbul instrument --output ./build/src-cov src
@@ -41,3 +45,19 @@ ifeq (, $(shell which pystache))
  $(error "No pystache path, consider doing pip install pystache")
 endif
 	gitchangelog > CHANGELOG.md
+
+.PHONY: eslint-html
+eslint-html:
+	$(BIN)/eslint . --output-file ./build/eslint.html --format html
+
+.PHONY: eslint
+eslint:
+	$(BIN)/eslint .
+
+.PHONY: jscs
+jscs:
+	$(BIN)/jscs . --config .jscsrc
+
+.PHONY: jscs-xml
+jscs-xml:
+	$(BIN)/jscs . --config .jscsrc --reporter checkstyle > ./build/jscs.xml
