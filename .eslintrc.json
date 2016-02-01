@@ -5,6 +5,11 @@
     "node": true
   },
   "rules": {
+    "quotes": [
+      2,
+      "single",
+      "avoid-escape"
+    ],
     "max-len": [
       1,
       120,
