@@ -24,6 +24,14 @@ function Processor(opts) {
   this.opts = opts || {};
 
   /**
+   * Is the function remote, used for preloading all the data before loading
+   *
+   * @defaultValue false
+   * @type {boolean}
+   */
+  this.isRemote = false;
+
+  /**
    * Is the response cacheable, if set to true it will process only once and then return the stored data
    *
    * @defaultValue true
@@ -151,10 +159,9 @@ Processor.prototype.init = function process() {
     deferred.resolve(this.get());
   } else {
     this.processor()
-      .then(function() {
+      .then(function onFulfilled() {
         return deferred.resolve(self.get());
-      })
-      .fail(function(error) {
+      }, function onRejected(error) {
         self.error = error;
         return deferred.reject(error);
       });

@@ -22,7 +22,7 @@ docs: clean-docs
 
 .PHONY: coverage
 coverage: src-cov
-	$(BIN)/istanbul cover $(BIN)/_mocha
+	$(BIN)/istanbul cover $(BIN)/_mocha -x "context.js"
 
 .PHONY: clean
 clean: clean-coverage clean-docs

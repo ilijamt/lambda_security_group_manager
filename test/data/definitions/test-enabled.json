@@ -1,5 +1,10 @@
 {
   "name": "Test Enabled",
   "enabled": true,
-  "processor": "TestProcessor"
+  "processor": "TestCRProcessor",
+  "region": "us-east-1",
+  "securityGroup": {
+    "id": "sg-5cf0f836",
+    "name": "Test"
+  }
 }

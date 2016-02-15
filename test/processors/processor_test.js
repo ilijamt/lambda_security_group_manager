@@ -10,12 +10,16 @@ describe('Processor', function() {
       var processor = new Processor({test: false});
       it('should have correct parameters', function() {
         processor.opts.should.be.deepEqual({test: false});
+        processor.isRemote.should.be.false();
+        processor.isCacheable.should.be.true();
       });
     });
     describe('without parameters', function() {
       var processor = new Processor();
       it('should have empty parameters', function() {
         processor.opts.should.be.deepEqual({});
+        processor.isRemote.should.be.false();
+        processor.isCacheable.should.be.true();
       });
     });
   });

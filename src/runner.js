@@ -2,6 +2,7 @@
 var path = require('path');
 var glob = require('glob');
 var Q = require('q');
+var async = require('async');
 var config = require('../config');
 
 /**
@@ -156,20 +157,102 @@ Runner.prototype.reset = function reset() {
   this.processors = {};
 };
 
+Runner.prototype.preload = function preload() {
+  var deferred = Q.defer();
+  var processorsToPreload = [];
+  var self = this;
+
+  this.definitions.forEach(function(definition) {
+    var processorName = definition.processor;
+    var processor = self.processors[processorName];
+    /* istanbul ignore else */
+    if (processor && processor.isRemote && processor.isCacheable) {
+      processorsToPreload.push(processorName);
+    }
+  });
+
+  async.eachLimit(processorsToPreload, config.concurrency, function(processor, callback) {
+    if (self.processors[processor]) {
+      self.processors[processor].init()
+        .then(function onFulfilled(data) {
+          callback(null, data);
+        }, function onRejected(error) {
+          callback(error);
+        });
+    } else {
+      callback(new Error("Processor doesn't exist"));
+    }
+  }, function(err) {
+    if (err) {
+      return deferred.reject(err);
+    }
+
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
 /**
- * Start the runner, it will load all {@link Processor} and configuration files
+ * Process all the definitions
+ *
+ * @return {promise} A promise
+ */
+Runner.prototype.process = function() {
+  var deferred = Q.defer();
+  var self = this;
+
+  this.preload()
+    .then(function onFulfilled() {
+      async.eachLimit(self.definitions, config.concurrency,
+        function handler(definition, callback) {
+          // @TODO: Run all definition through the Amazon Security Group
+          callback();
+        },
+        function callback(error) {
+          if (error) {
+            return deferred.reject(error);
+          }
+          return deferred.resolve();
+        });
+    }, function onAsyncRejected(error) {
+      return deferred.reject(error);
+    });
+
+  return deferred.promise;
+};
+
+/**
+ * Load all definitions and {@link Processor}
+ *
+ * @return {promise} A promise
+ */
+Runner.prototype.load = function() {
+  var deferred = Q.defer();
+  Q.all([this.loadDefinitions(), this.loadProcessors()])
+    .spread(function onFulfilled(data) {
+      return deferred.resolve(data);
+    }, function onRejected(error) {
+      return deferred.reject(error);
+    })
+    .done();
+  return deferred.promise;
+};
+
+/**
+ * Start the runner, it will load all {@link Processor} and configuration files, and then process the definitions
  *
  * @return {promise} A promise
  */
 Runner.prototype.run = function run() {
   var deferred = Q.defer();
-  Q.all([this.loadDefinitions(), this.loadProcessors()])
-    .spread(function onFulfilled() {
-      return deferred.resolve();
+  this.load()
+    .then(Runner.prototype.process.bind(this))
+    .then(function onFulfilled(data) {
+      return deferred.resolve(data);
     }, function onRejected(error) {
       return deferred.reject(error);
-    })
-    .done();
+    });
   return deferred.promise;
 };
 

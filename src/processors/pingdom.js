@@ -25,6 +25,14 @@ var PingdomProcessor = function PingdomProcessor(opts) {
   Processor.apply(this, [opts]);
 
   /**
+   * Is the function remote, used for preloading all the data before loading
+   *
+   * @defaultValue true
+   * @type {boolean}
+   */
+  this.isRemote = true;
+
+  /**
    * The name of the Processor
    *
    * @type {string}

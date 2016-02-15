@@ -3,9 +3,10 @@
 var util = require('util');
 var Processor = require('../../../src/processor.js');
 
-var TestProcessor = function TestProcessor(opts) {
+var TestCRProcessor = function TestCRProcessor(opts) {
   Processor.apply(this, [opts]);
-  this.name = 'TestProcessor';
+  this.name = 'TestCRProcessor';
+  this.isRemote = true;
   this.isCacheable = true;
   this.ips = {
     ipv4: [
@@ -17,6 +18,6 @@ var TestProcessor = function TestProcessor(opts) {
   };
 };
 
-util.inherits(TestProcessor, Processor);
+util.inherits(TestCRProcessor, Processor);
 
-module.exports = TestProcessor;
+module.exports = TestCRProcessor;

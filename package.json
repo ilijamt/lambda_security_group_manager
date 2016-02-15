@@ -32,6 +32,7 @@
     "mocha": "^2.4.5",
     "nock": "^7.0.2",
     "node-aws-lambda": "^0.1.7",
+    "proxyquire": "^1.7.4",
     "run-sequence": "^1.1.5",
     "should": "^8.2.1"
   },
@@ -46,6 +47,9 @@
     "ec2",
     "vpc"
   ],
+  "scripts": {
+    "test": "make test"
+  },
   "license": "Apache-2.0",
   "main": "index.js",
   "name": "lambda_security_group_manager",

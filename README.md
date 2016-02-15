@@ -11,6 +11,8 @@ Configuration
 * **DIR_PROCESSORS**: If set it will override the defined processors directory
 * **EXT_PROCESSORS**: If set it will override the defined processors for definitions
 * **CONCURRENCY**: If set it will override how many task can it run at one time
+* **AMAZON_API_VERSION**: If set it will override the default version of the Amazon API
+* **AMAZON_REGION**: If set it will override the default region of the Amazon API
 
 ### Lambda
 
@@ -39,5 +41,40 @@ A configuration example
     "timeout": 60,
     "memorySize": 128,
     "runtime": "nodejs"
+}
+```
+
+#### Required permisions
+
+The following are the required permissions for the lambda function in question.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1452604809000",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:DescribeSecurityGroups",
+        "ec2:RevokeSecurityGroupEgress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
 }
 ```

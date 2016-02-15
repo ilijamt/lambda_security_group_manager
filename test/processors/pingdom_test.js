@@ -14,6 +14,14 @@ describe('PingdomProcessor', function() {
     it('has URI', function() {
       processor.should.have.property('URI', URI);
     });
+
+    it('should be remote', function() {
+      processor.isRemote.should.be.true();
+    });
+
+    it('should be cacheable', function() {
+      processor.isCacheable.should.be.true();
+    });
   });
 
   describe('instanceOf', function() {

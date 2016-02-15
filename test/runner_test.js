@@ -34,7 +34,7 @@ describe('Runner', function() {
     it('everything should be loaded', function() {
       runner.isLoaded().should.be.true();
       runner.definitions.should.have.length(1);
-      Object.keys(runner.processors).should.have.length(1);
+      Object.keys(runner.processors).should.have.length(2);
     });
   });
 
@@ -113,7 +113,7 @@ describe('Runner', function() {
       var definition = runner.definitions[0];
       definition.name.should.be.equal('Test Enabled');
       definition.enabled.should.be.true();
-      definition.processor.should.be.equal('TestProcessor');
+      definition.processor.should.be.equal('TestCRProcessor');
     });
   });
 
@@ -126,10 +126,10 @@ describe('Runner', function() {
       return runner.loadProcessors().should.be.fulfilled();
     });
 
-    it('should have exactly one processor and correct data', function() {
+    it('should have exactly two processor and correct data', function() {
       runner.processorsLoaded.should.be.true();
-      runner.processors.should.have.keys('TestProcessor');
-      Object.keys(runner.processors).should.have.length(1);
+      runner.processors.should.have.keys(['TestProcessor', 'TestCRProcessor']);
+      Object.keys(runner.processors).should.have.length(2);
     });
   });
 
