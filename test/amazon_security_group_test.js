@@ -18,13 +18,19 @@ describe('Amazon Security Group', function() {
   };
   var ec2stub = {
     describeSecurityGroups: function(params, callback) {
-      callback(null, require('./data/ec2/describe.json'));
-    }
-  };
-
-  var ec2stubFail = {
-    describeSecurityGroups: function(params, callback) {
-      callback(new Error('mock'));
+      callback(null, require('./data/ec2/describeSecurityGroups.json'));
+    },
+    revokeSecurityGroupIngress: function(params, callback) {
+      callback(null, require('./data/ec2/revokeSecurityGroupIngress.json'));
+    },
+    revokeSecurityGroupEgress: function(params, callback) {
+      callback(null, require('./data/ec2/revokeSecurityGroupEgress.json'));
+    },
+    authorizeSecurityGroupIngress: function(params, callback) {
+      callback(null, require('./data/ec2/authorizeSecurityGroupIngress.json'));
+    },
+    authorizeSecurityGroupEgress: function(params, callback) {
+      callback(null, require('./data/ec2/authorizeSecurityGroupEgress.json'));
     }
   };
 
