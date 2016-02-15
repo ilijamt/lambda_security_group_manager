@@ -1,1 +1,13 @@
-{}
+{
+  "SecurityGroups": [
+    {
+      "OwnerId": "261872168464",
+      "GroupName": "Test",
+      "GroupId": "sg-5cf0f836",
+      "Description": "Test",
+      "IpPermissions": [],
+      "IpPermissionsEgress": [],
+      "Tags": []
+    }
+  ]
+}

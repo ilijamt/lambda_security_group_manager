@@ -1,10 +1,13 @@
 /* eslint-env node, mocha */
-/* eslint-disable new-cap, no-path-concat, no-unused-vars */
+/* eslint-disable require-jsdoc, new-cap, no-path-concat, no-unused-vars, no-inline-comments */
 'use strict';
 var should = require('should');
 var path = require('path');
+var mock = require('mock-require');
 
 describe('Runner', function() {
+  mock('../src/amazon_security_group', './data/mock-amazon-security-group');
+
   var config = require('../config');
   var runner = require('../src/runner');
   var originalConfig = {};
@@ -34,7 +37,7 @@ describe('Runner', function() {
     it('everything should be loaded', function() {
       runner.isLoaded().should.be.true();
       runner.definitions.should.have.length(1);
-      Object.keys(runner.processors).should.have.length(2);
+      Object.keys(runner.processors).should.have.length(3);
     });
   });
 
@@ -126,10 +129,47 @@ describe('Runner', function() {
       return runner.loadProcessors().should.be.fulfilled();
     });
 
-    it('should have exactly two processor and correct data', function() {
+    it('should have processors and correct data', function() {
       runner.processorsLoaded.should.be.true();
-      runner.processors.should.have.keys(['TestProcessor', 'TestCRProcessor']);
-      Object.keys(runner.processors).should.have.length(2);
+      runner.processors.should.have.keys(['TestProcessor', 'TestCRProcessor', 'TestAlwaysFailProcessor']);
+      Object.keys(runner.processors).should.have.length(3);
+    });
+  });
+
+  describe('#preload + #process', function() {
+    before(function() {
+      runner.reset();
+    });
+    it('load definitions', function() {
+      return runner.loadDefinitions().should.be.fulfilled();
+    });
+    it('load processors', function() {
+      return runner.loadProcessors().should.be.fulfilled();
+    });
+    it('should fail on #preload', function() {
+      runner.definitions[0].processor = 'TestAlwaysFailProcessor';
+      return runner.preload().should.be.rejected();
+    });
+    it('should fail on #process', function() {
+      runner.definitions[0].processor = 'TestAlwaysFailProcessor';
+      return runner.process().should.be.rejected();
+    });
+  });
+
+  describe('#process fail on ASG', function() {
+    before(function() {
+      runner.reset();
+    });
+    it('load definitions', function() {
+      return runner.loadDefinitions().should.be.fulfilled();
+    });
+    it('load processors', function() {
+      return runner.loadProcessors().should.be.fulfilled();
+    });
+    it('should fail on #process', function() {
+      mock('../src/amazon_security_group', './data/mock-amazon-security-group-fail');
+      runner.definitions[0].processor = 'TestCRProcessor';
+      return runner.process().should.be.rejected();
     });
   });
 
@@ -137,5 +177,6 @@ describe('Runner', function() {
     config.root = originalConfig.root;
     config.definitions.dir = originalConfig.definitions.dir;
     config.processors.dir = originalConfig.processors.dir;
+    mock.stopAll();
   });
 });

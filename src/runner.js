@@ -172,16 +172,12 @@ Runner.prototype.preload = function preload() {
   });
 
   async.eachLimit(processorsToPreload, config.concurrency, function(processor, callback) {
-    if (self.processors[processor]) {
-      self.processors[processor].init()
-        .then(function onFulfilled(data) {
-          callback(null, data);
-        }, function onRejected(error) {
-          callback(error);
-        });
-    } else {
-      callback(new Error("Processor doesn't exist"));
-    }
+    self.processors[processor].init()
+      .then(function onFulfilled(data) {
+        callback(null, data);
+      }, function onRejected(error) {
+        callback(error);
+      });
   }, function(err) {
     if (err) {
       return deferred.reject(err);
@@ -191,6 +187,19 @@ Runner.prototype.preload = function preload() {
   });
 
   return deferred.promise;
+};
+
+Runner.prototype.buildAmazonSecurityGroupOptions = function(definition, processor) {
+  return {
+    egress: definition.egress,
+    terminateAfterRemove: definition.terminateAfterRemove,
+    ipType: definition.ipType,
+    ips: processor.ips,
+    securityGroup: definition.securityGroup,
+    firewall: definition.firewall,
+    apiVersion: definition.apiVersion,
+    region: definition.region
+  };
 };
 
 /**
@@ -206,8 +215,22 @@ Runner.prototype.process = function() {
     .then(function onFulfilled() {
       async.eachLimit(self.definitions, config.concurrency,
         function handler(definition, callback) {
-          // @TODO: Run all definition through the Amazon Security Group
-          callback();
+          var processor = self.processors[definition.processor];
+          processor.init()
+            .then(function onFulfilled(data) {
+              var AmazonSecurityGroup = require('./amazon_security_group');
+              var asg = new AmazonSecurityGroup(self.buildAmazonSecurityGroupOptions(definition, data));
+              asg.run()
+                .then(function onFulfilled(data) {
+                  callback(null, data);
+                }, function onRejected(error) {
+                  callback(error);
+                });
+            },
+            /* istanbul ignore next */
+            function onRejected(error) {
+              callback(error);
+            });
         },
         function callback(error) {
           if (error) {

@@ -6,5 +6,15 @@
   "securityGroup": {
     "id": "sg-5cf0f836",
     "name": "Test"
+  },
+  "firewall": {
+    "port": {
+      "from": 8091,
+      "to": 8091
+    },
+    "protocol": "tcp",
+    "ipType": [
+      "ipv4"
+    ]
   }
 }
