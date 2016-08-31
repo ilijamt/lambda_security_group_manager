@@ -1,6 +1,8 @@
 Auto managing your AWS security groups with Lambda
 ==================================================
 
+[![Travis](https://travis-ci.org/ilijamt/lambda_security_group_manager.svg?branch=master)](https://travis-ci.org/ilijamt/lambda_security_group_manager)
+
 Configuration
 -------------
 
