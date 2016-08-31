@@ -3,7 +3,7 @@ image: node:6
 test:app:
   script:
     - apt-get update
-    - apt-get install python-pip
+    - apt-get install -y python-pip
     - pip install gitchangelog
     - pip install pystache
     - make setup
