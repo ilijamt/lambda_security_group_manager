@@ -1,5 +1,5 @@
 /* eslint-env node, mocha */
-/* eslint-disable new-cap, no-path-concat, no-unused-vars */
+/* eslint-disable new-cap, camelcase, no-path-concat, no-unused-vars */
 'use strict';
 var fs = require('fs');
 var config = require('../config');
@@ -16,6 +16,7 @@ describe('Amazon Security Group', function() {
       '::1'
     ]
   };
+
   var ec2stub = {
     describeSecurityGroups: function(params, callback) {
       callback(null, require('./data/ec2/describeSecurityGroups.json'));
@@ -31,6 +32,24 @@ describe('Amazon Security Group', function() {
     },
     authorizeSecurityGroupEgress: function(params, callback) {
       callback(null, require('./data/ec2/authorizeSecurityGroupEgress.json'));
+    }
+  };
+
+  var ec2stub_fail = {
+    describeSecurityGroups: function(params, callback) {
+      callback(new Error('describeSecurityGroups'));
+    },
+    revokeSecurityGroupIngress: function(params, callback) {
+      callback(new Error('revokeSecurityGroupIngress'));
+    },
+    revokeSecurityGroupEgress: function(params, callback) {
+      callback(new Error('revokeSecurityGroupEgress'));
+    },
+    authorizeSecurityGroupIngress: function(params, callback) {
+      callback(new Error('authorizeSecurityGroupIngress'));
+    },
+    authorizeSecurityGroupEgress: function(params, callback) {
+      callback(new Error('authorizeSecurityGroupEgress'));
     }
   };
 
@@ -153,35 +172,68 @@ describe('Amazon Security Group', function() {
   });
 
   describe('#describe', function() {
-    var asg = new AmazonSecurityGroup(opts);
-    asg.ec2 = ec2stub;
-    var promise = asg.describe();
+    describe('fulfilled', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub;
+      it('-> promise', function() {
+        var promise = asg.describe();
+        promise.should.be.a.Promise();
+        return promise.should.be.fulfilled();
+      });
+    });
 
-    it('promise + fulfilled', function() {
-      promise.should.be.a.Promise();
-      return promise.should.be.fulfilled();
+    describe('rejected', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub_fail;
+      it('-> promise', function() {
+        var promise = asg.describe();
+        promise.should.be.a.Promise();
+        return promise.should.be.rejected();
+      });
     });
   });
 
   describe('#add', function() {
-    var asg = new AmazonSecurityGroup(opts);
-    asg.ec2 = ec2stub;
-    var promise = asg.add();
+    describe('fulfilled', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub;
+      it('-> promise', function() {
+        var promise = asg.add();
+        promise.should.be.a.Promise();
+        return promise.should.be.fulfilled();
+      });
+    });
 
-    it('promise + fulfilled', function() {
-      promise.should.be.a.Promise();
-      return promise.should.be.fulfilled();
+    describe('rejected', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub_fail;
+      it('-> promise', function() {
+        var promise = asg.add();
+        promise.should.be.a.Promise();
+        return promise.should.be.rejected();
+      });
     });
   });
 
   describe('#remove', function() {
-    var asg = new AmazonSecurityGroup(opts);
-    asg.ec2 = ec2stub;
-    var promise = asg.remove();
+    describe('fulfilled', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub;
+      it('-> promise', function() {
+        var promise = asg.remove();
+        promise.should.be.a.Promise();
+        return promise.should.be.fulfilled();
+      });
+    });
 
-    it('promise + fulfilled', function() {
-      promise.should.be.a.Promise();
-      return promise.should.be.fulfilled();
+    describe('rejected', function() {
+      var asg = new AmazonSecurityGroup(opts);
+      asg.ec2 = ec2stub_fail;
+      it('-> promise', function() {
+        var promise = asg.remove();
+        promise.should.be.a.Promise();
+        return promise.should.be.rejected();
+      });
     });
   });
 

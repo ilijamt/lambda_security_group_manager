@@ -1,5 +1,5 @@
 /* eslint-env node, mocha */
-/* eslint-disable require-jsdoc, new-cap, no-path-concat, no-unused-vars, no-inline-comments */
+/* eslint-disable require-jsdoc, camelcase, new-cap, no-path-concat, no-unused-vars, no-inline-comments */
 'use strict';
 var should = require('should');
 var path = require('path');

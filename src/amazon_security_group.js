@@ -193,12 +193,13 @@ AmazonSecurityGroup.prototype.validate = function validate() {
  */
 AmazonSecurityGroup.prototype.describe = function describe() {
   var deferred = Q.defer();
+  var method = 'describeSecurityGroups';
   var params = {
     DryRun: false,
     GroupIds: [this.securityGroup.id]
   };
 
-  this._ec2().describeSecurityGroups(params, function(err, result) {
+  this._ec2()[method](params, function(err, result) {
     if (err) {
       return deferred.reject(err);
     }
@@ -215,7 +216,23 @@ AmazonSecurityGroup.prototype.describe = function describe() {
  */
 AmazonSecurityGroup.prototype.remove = function remove() {
   var deferred = Q.defer();
-  deferred.resolve();
+  var method = 'revokeSecurityGroupIngress';
+  var params = {
+    DryRun: false,
+    GroupIds: [this.securityGroup.id]
+  };
+
+  if (this.egress) {
+    method = 'revokeSecurityGroupEgress';
+  }
+
+  this._ec2()[method](params, function(err, result) {
+    if (err) {
+      return deferred.reject(err);
+    }
+    return deferred.resolve();
+  });
+
   return deferred.promise;
 };
 
@@ -226,7 +243,22 @@ AmazonSecurityGroup.prototype.remove = function remove() {
  */
 AmazonSecurityGroup.prototype.add = function add() {
   var deferred = Q.defer();
-  deferred.resolve();
+  var method = 'authorizeSecurityGroupIngress';
+  var params = {
+    DryRun: false,
+    GroupIds: [this.securityGroup.id]
+  };
+
+  if (this.egress) {
+    method = 'authorizeSecurityGroupEgress';
+  }
+
+  this._ec2()[method](params, function(err, result) {
+    if (err) {
+      return deferred.reject(err);
+    }
+    return deferred.resolve();
+  });
   return deferred.promise;
 };
 
