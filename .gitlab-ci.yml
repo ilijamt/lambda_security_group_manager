@@ -1,0 +1,6 @@
+image: node:6.3
+
+test:app:
+  script:
+    - make setup
+    - make test
