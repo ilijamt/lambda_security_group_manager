@@ -15,7 +15,8 @@
     "lodash": "^4.1.0",
     "q": "^1.4.1",
     "request": "^2.69.0",
-    "xml2js": "^0.4.16"
+    "xml2js": "^0.4.16",
+    "snyk": "^1.319.1"
   },
   "description": "Auto managing your AWS security groups with Lambda",
   "devDependencies": {
@@ -49,7 +50,9 @@
     "vpc"
   ],
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "license": "Apache-2.0",
   "main": "index.js",
@@ -63,5 +66,6 @@
   "engines": {
     "node": "~0.10.x"
   },
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "snyk": true
 }
