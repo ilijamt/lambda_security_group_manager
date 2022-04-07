@@ -9,7 +9,7 @@
   },
   "contributors": [],
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^3.2.2",
     "aws-sdk": "^2.2.33",
     "glob": "^6.0.4",
     "lodash": "^4.1.0",
