@@ -15,7 +15,7 @@
     "lodash": "^4.1.0",
     "q": "^1.4.1",
     "request": "^2.69.0",
-    "xml2js": "^0.4.16"
+    "xml2js": "^0.5.0"
   },
   "description": "Auto managing your AWS security groups with Lambda",
   "devDependencies": {
